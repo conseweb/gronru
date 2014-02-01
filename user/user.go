@@ -7,8 +7,8 @@ package user
 import (
 	"errors"
 	"fmt"
-	"github.com/globocom/gandalf/db"
-	"github.com/globocom/gandalf/repository"
+	"github.com/xbee/gronru/db"
+	"github.com/xbee/gronru/repository"
 	"labix.org/v2/mgo/bson"
 	"regexp"
 )

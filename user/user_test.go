@@ -6,10 +6,10 @@ package user
 
 import (
 	"github.com/globocom/config"
-	"github.com/globocom/gandalf/db"
-	"github.com/globocom/gandalf/fs"
-	"github.com/globocom/gandalf/repository"
 	fstesting "github.com/globocom/tsuru/fs/testing"
+	"github.com/xbee/gronru/db"
+	"github.com/xbee/gronru/fs"
+	"github.com/xbee/gronru/repository"
 	"io/ioutil"
 	"labix.org/v2/mgo/bson"
 	"launchpad.net/gocheck"
@@ -37,9 +37,9 @@ func (s *S) authKeysContent(c *gocheck.C) string {
 }
 
 func (s *S) SetUpSuite(c *gocheck.C) {
-	err := config.ReadConfigFile("../etc/gandalf.conf")
+	err := config.ReadConfigFile("../etc/gronru.conf")
 	c.Check(err, gocheck.IsNil)
-	config.Set("database:name", "gandalf_user_tests")
+	config.Set("database:name", "gronru_user_tests")
 	db.Connect()
 }
 

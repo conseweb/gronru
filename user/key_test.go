@@ -10,7 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/globocom/config"
-	"github.com/globocom/gandalf/db"
+	"github.com/xbee/gronru/db"
 	"io"
 	"io/ioutil"
 	"labix.org/v2/mgo/bson"
@@ -38,23 +38,23 @@ const comment = "f@xikinbook.local"
 const otherKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCaNZSIEyP6FSdCX0WHDcUFTvebNbvqKiiLEiC7NTGvKrT15r2MtCDi4EPi4Ul+UyxWqb2D7FBnK1UmIcEFHd/ZCnBod2/FSplGOIbIb2UVVbqPX5Alv7IBCMyZJD14ex5cFh16zoqOsPOkOD803LMIlNvXPDDwKjY4TVOQV1JtA2tbZXvYUchqhTcKPxt5BDBZbeQkMMgUgHIEz6IueglFB3+dIZfrzlmM8CVSElKZOpucnJ5JOpGh3paSO/px2ZEcvY8WvjFdipvAWsis75GG/04F641I6XmYlo9fib/YytBXS23szqmvOqEqAopFnnGkDEo+LWI0+FXgPE8lc5BD"
 
 func (s *S) TestNewKey(c *gocheck.C) {
-	k, err := newKey("key1", "me@tsuru.io", rawKey)
+	k, err := newKey("key1", "me@jindou.io", rawKey)
 	c.Assert(err, gocheck.IsNil)
 	c.Assert(k.Name, gocheck.Equals, "key1")
 	c.Assert(k.Body, gocheck.Equals, body)
 	c.Assert(k.Comment, gocheck.Equals, comment)
-	c.Assert(k.UserName, gocheck.Equals, "me@tsuru.io")
+	c.Assert(k.UserName, gocheck.Equals, "me@jindou.io")
 }
 
 func (s *S) TestNewKeyInvalidKey(c *gocheck.C) {
-	raw := "ssh-dss ASCCDD== invalid@tsuru.io"
-	k, err := newKey("key1", "me@tsuru.io", raw)
+	raw := "ssh-dss ASCCDD== invalid@jindou.io"
+	k, err := newKey("key1", "me@jindou.io", raw)
 	c.Assert(k, gocheck.IsNil)
 	c.Assert(err, gocheck.Equals, ErrInvalidKey)
 }
 
 func (s *S) TestNewKeyCreatedAtStoresCurrentTime(c *gocheck.C) {
-	k, err := newKey("key1", "me@tsuru.io", rawKey)
+	k, err := newKey("key1", "me@jindou.io", rawKey)
 	c.Assert(err, gocheck.IsNil)
 	gotY, gotM, gotD := k.CreatedAt.Date()
 	y, m, d := time.Now().Date()
@@ -185,7 +185,7 @@ func (s *S) TestAuthKeyConfig(c *gocheck.C) {
 }
 
 func (s *S) TestWriteKey(c *gocheck.C) {
-	key, err := newKey("my-key", "me@tsuru.io", rawKey)
+	key, err := newKey("my-key", "me@jindou.io", rawKey)
 	c.Assert(err, gocheck.IsNil)
 	writeKey(key)
 	f, err := s.rfs.Open(authKey())
